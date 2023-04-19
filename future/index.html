@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Future work - Baytree App Developer Guide</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Future work";
+        var mkdocs_page_input_path = "future.md";
+        var mkdocs_page_url = null;
+      </script>
+
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Baytree App Developer Guide
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../mock_views/">Mock Views</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Future work</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#mock-the-remaining-views-endpoints-in-baytree_app">Mock the remaining Views endpoints in baytree_app</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#resolve-all-linting-errors-in-admin-frontend">Resolve all linting errors in admin-frontend</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#convert-baytree-views-from-synchronous-to-asynchronous">Convert Baytree views from synchronous to asynchronous</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#additional-note">Additional note:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#add-fixtures-data">Add fixtures data</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#add-unit-tests">Add unit tests</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Baytree App Developer Guide</a>
+
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Future work</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+
+                <h1 id="future-work-whats-left">Future work - What's left?</h1>
+<h2 id="mock-the-remaining-views-endpoints-in-baytree_app">Mock the remaining Views endpoints in <code>baytree_app</code></h2>
+<p>The following Views endpoints need to be mocked:</p>
+<table>
+<thead>
+<tr>
+<th>Baytree view</th>
+<th>Views endpoint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mentor-mentees</code></td>
+<td><code>contacts/staff/{id}/associations</code></td>
+</tr>
+<tr>
+<td><code>session-group</code></td>
+<td><code>work/sessiongroups</code></td>
+</tr>
+<tr>
+<td><code>sessions</code></td>
+<td><code>work/sessiongroups/sessions</code></td>
+</tr>
+<tr>
+<td><code>questionnaires/answers/submit</code></td>
+<td><code>evidence/questionnaires/{qid}/answers</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="resolve-all-linting-errors-in-admin-frontend">Resolve all linting errors in <code>admin-frontend</code></h2>
+<p>Because linting had not been enforced until later in the development cycle, hundreds of linting errors accmumulated throughout <code>frontend</code> and <code>admin-frontend</code> over the last couple of years. While we have resolved all errors in <code>frontend</code>, there are still 180+ linting errors remaining in <code>admin-frontend</code>. Run <code>npm run lint</code> to view these errors.</p>
+<h2 id="convert-baytree-views-from-synchronous-to-asynchronous">Convert Baytree views from synchronous to asynchronous</h2>
+<p>All endpoints under baytree_app/views-api are currently implemented as synchronous, except for the <code>get_participants</code> endpoint. This synchronous implementation could create performance issues in the backend. With synchronous endpoints, the server has to process one request at a time, blocking other requests until the current request is completed. This can result in longer response times and slower performance. To address this issue, converting all the synchronous endpoints to asynchronous can significantly improve performance. Asynchronous endpoints allow the server to process multiple requests simultaneously, reducing response times and improving performance.</p>
+<p><code>get_participants</code> endpoint serves as an example for how to implement an asynchronous endpoint (the endpoint was converted from sync to async in this <a href="https://csil-git1.cs.surrey.sfu.ca/415-baytree/mentorsupport/-/merge_requests/229">MR</a>). In addition to adding the <code>async</code> keyword, we use <code>aiohttp</code>'s <code>ClientSession</code> to make an asynchronous request.</p>
+<h3 id="additional-note">Additional note</h3>
+<p><code>baytree_app</code> has several functions join data queried from the local MySQL database with the data fetched using a Views API. One example is <code>JointMentorsAndVolunteersData</code> views in <code>views_api/volunteers.py</code> (shown below). The view makes a request to <code>/contacts/volunteers</code> by calling the <code>get_volunteers</code> endpoint to fetch volunteers from Views and queries mentor objects from the local database. The two datasets are then joined on the ID field. Here, it is easy to assume that <code>JointMentorsAndVolunteersData</code> will behave asynchronously once we add <code>async</code> keyword to view's <code>get</code> method, and convert <code>get_volunteers</code> to an asynchronous endpoint, similar to what we did for <code>get_participants</code>. However, doing so is not enough and will lead to an error since querying the database is not asynchronous. As we cannot await <code>MentorUser.object.all()</code>, <code>mentors_from_db</code> passed into <code>join_views_volunteers_to_mentors_users</code> will be None.</p>
+<p>To support a synchronous implementation of this endpoint, further steps to make database queries asynchronous are necessary.</p>
+<pre><code>class JointMentorsAndVolunteersData(APIView):
+  def get(self, request):
+    ...
+    mentors_from_db = MentorUser.objects.all() // Queries MentorUser objects from the local database
+    response = get_volunteers(updated_request) // Fetches volunteers from Views
+    joined_data = join_views_volunteers_to_mentor_users(  // Joins the two datasets on the ID field.
+        mentors_from_db,
+        response.data[&quot;data&quot;]
+    )
+    ...
+    return Response({
+        &quot;count&quot;: len(joined_data),
+        &quot;results&quot;: joined_data
+    })
+</code></pre>
+<h2 id="add-fixtures-data">Add fixtures data</h2>
+<p>To streamline the testing process for our mocked endpoints, we can explore the use of Django fixtures to load initial data to the database. This would eliminate the need for developers to manually add mock data to the appropriate tables in the correct order based on foreign key relationships, which can be a tedious and error-prone process, especially if the database container needs to be destroyed and rebuilt.</p>
+<p>By using fixtures, we can provide pre-defined data in a structured format, such as JSON, YAML or XML files, which can be easily loaded into the database using Django's built-in loaddata command. This would make it simpler for developers to set up the necessary data for testing our mocked endpoints. Note that the fixtures would still have to be loaded in the correct order to satisfy the existing foreign key relationships. Using Django fixtures to load initial data to the database can improve the efficiency and accuracy of our testing process, and it is a good practice to consider for future development.</p>
+<h2 id="add-unit-tests">Add unit tests</h2>
+<p>At the moment, the backend does not have any unit tests, which has resulted in uncertainty about whether newly introduced code or refactoring will break existing features. This issue has caused problems during the current development cycle, where modifications to an existing functionality were confirmed to work correctly, only to find out later that they actually broke another functionality.</p>
+<p>To address this issue, we need to implement unit tests for the backend. Unit tests serve as a safety net, alerting us to breaking changes and reducing the need for manual testing. With unit tests in place, we can catch any regressions or issues quickly and prevent them from making their way to production.</p>
+
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../mock_views/" class="btn btn-neutral float-left" title="Mock Views"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+
+
+      <span><a href="../mock_views/" style="color: #fcfcfc">&laquo; Previous</a></span>
+
+
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

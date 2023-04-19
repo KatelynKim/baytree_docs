@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Mock Views - Baytree App Developer Guide</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Mock Views";
+        var mkdocs_page_input_path = "mock_views.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Baytree App Developer Guide
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Overview</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Mock Views</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-mock-views">What is Mock Views?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#project-structure">Project structure</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#views-mock-database">Views Mock Database</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#authentication">Authentication</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#shared-apps">Shared Apps</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mock-apis">Mock APIs</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#contacts">Contacts</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#contactsparticipantssearch">/contacts/participants/search</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#contactsvolunteerssearch">/contacts/volunteers/search</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#evidence">Evidence</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#evidencequestionnairesid">/evidence/questionnaires/{id}</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#evidencequestionnairesearch">/evidence/questionnaire/search</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#admin">Admin</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#adminvaluelistsid">/admin/valuelists/{id}</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#adminvalueliststypename">/admin/valuelists/{Type}/{Name}</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#to-be-implemented">To be implemented</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../future/">Future work</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Baytree App Developer Guide</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Mock Views</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="mock-views">Mock Views</h1>
+<h2 id="what-is-mock-views">What is Mock Views?</h2>
+<p>Mock Views is a mock system designed for <a href="https://www.viewsapp.net/">Views App</a>, a third-party data management tool used by the Baytree Organization to manage data related to staff, mentors, mentees, sessions, session groups, and more. Mock Views was developed to allow Baytree App to continue functioning without access to Views App.</p>
+<p>Views App provides <a href="https://www.substance.net/views/api/index.php/Views_API_Documentation">REST API services</a> that support CRUD operations on these data. Baytree App uses a subset of these APIs for its features.</p>
+<p>Mock Views replicates these APIs, allowing users to perform the same CRUD operations on their data stored in <code>views_mock_db</code>, a mock database that mimics the structure of Views App's database. Just like Views App, Mock Views returns the requested data in an XML or JSON format in addition to adding, updating, and deleting data in <code>views_mock_db</code>. Note that the tables in <code>views_mock_db</code> contain only the fields that are used in <code>baytree_app</code>.</p>
+<h2 id="project-structure">Project structure</h2>
+<p>Mock Views is implemented using Django, just like the Baytree server. It contains the following apps, each with a <code>migration</code> folder storing migration files and <code>models.py</code> to define data models:
+* admin_valuelists
+* contacts
+* evidence
+* views_sessions</p>
+<p>Mocked endpoints can be found inside the <code>views_api</code> directory. Endpoints are defined in these files: <code>contacts.py</code>, <code>valuelists.py</code>, and <code>questionnaires.py</code>.</p>
+<h2 id="views-mock-database">Views Mock Database</h2>
+<p>Views Mock Database (<code>views_mock_db</code>) is a MySQL database that mimics the database schemas for Views App. It runs on the same port as the <code>baytree</code> database. It is created by running <code>python manage.py createdb</code> at the time of creating the <code>views-mock</code> container.</p>
+<p>Note that you must add the following environment variable for successful mock database creation: <code>MOCK_MYSQL_DATABASE=views_mock_db</code>.</p>
+<h2 id="authentication">Authentication</h2>
+<p><code>ViewsAuthMiddleware</code> intercepts any requests with paths that start with <code>/api/views-api</code> to attach a <code>VIEWS_AUTHORIZATION</code> header.</p>
+<p>If the <code>VIEWS_BASE_URL</code> environment variable in the <code>.env</code> file is set to the base URL for Views App (<code>https://app.viewsapp.net/api/restful/</code>), the <code>VIEWS_AUTHORIZATION</code> header is populated with the base64-encoded string value of the <code>VIEWS_USER_NAME</code> and <code>VIEWS_PASSWORD</code> environment variables.</p>
+<p>If <code>VIEWS_BASE_URL</code> is set to the base URL of Mock Views (<code>http://views-mock:5001/</code>), the <code>VIEWS_AUTHORIZATION</code> header is set to the currently active <code>access_token</code>.</p>
+<h2 id="shared-apps">Shared Apps</h2>
+<p><code>shared-apps</code> contain <code>users</code> and <code>sessions</code> apps, which include <code>models.py</code> files defining user and session models. These models are shared between <code>baytree_app</code> and <code>views_mock</code> as both projects need the models for checking user permissions for a given request.</p>
+<p>To learn how this sharable app was created, check <a href="https://docs.djangoproject.com/en/4.1/intro/reusable-apps/">Django's official documentation</a>.</p>
+<h2 id="mock-apis">Mock APIs</h2>
+<p>This section summarizes all of the mocked Views APIs used by <code>baytree_app</code>. <code>Param (Baytree)</code> lists the query parameters that are set by the client and accessed by <code>baytree_app</code>. <code>Param (Views Mock)</code> lists the query parameters that are set by <code>baytree_app</code> and accessed by <code>views_mock</code>.</p>
+<p>To test the response returned by the <code>baytree_app</code>, make a request to <code>http://localhost:8000/views_api/{path-to-your-view}</code> using the query parameters under <code>Param (Baytree)</code>. Requests to <code>baytree_app</code>'s Views endpoints will return parsed results.</p>
+<p>To test the response returned by <code>views_mock</code>, make a request to <code>http://localhost:5001/views_api/{path-to-your-view}</code> using the query parameters under <code>Param (Views Mock)</code>. Requests to <code>views_mock</code>'s Views endpoints will return raw XML or JSON results.</p>
+<h3 id="contacts">Contacts</h3>
+<h4 id="contactsparticipantssearch">/contacts/participants/search</h4>
+<p>Fetches participants in an XML format.</p>
+<table>
+<thead>
+<tr>
+<th>Param (Baytree)</th>
+<th>Param (Views Mock)</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>PersonID</td>
+<td>Participant ID</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>pageFold</td>
+<td>pageFold</td>
+<td>Number of results to return in a result set</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>offset</td>
+<td>Number of results to offset in a result set</td>
+<td>Number</td>
+</tr>
+</tbody>
+</table>
+<pre><code>&lt;root&gt;
+  &lt;contacts/&gt;
+    &lt;participants count=&quot;2&quot;/&gt;
+      &lt;participant id=&quot;1&quot;/&gt;
+        &lt;PersonID/&gt; 1 &lt;/PersonID/&gt;
+        &lt;Forename/&gt; Amber &lt;/Forename/&gt;
+        &lt;Surname/&gt; Smith &lt;/Surname/&gt;
+        &lt;TypeName/&gt; participant &lt;/TypeName/&gt;
+        &lt;Email/&gt; amber_smith@sfu.ca &lt;/Email/&gt;
+        &lt;DateOfBirth/&gt; 1994-01-01 &lt;/DateOfBirth/&gt;
+        &lt;FirstLanguage_P_88/&gt; English &lt;/FirstLanguage_P_88/&gt;
+        &lt;Ethnicity/&gt; American &lt;/Ethnicity/&gt;
+        &lt;Countryofbirth_P_87/&gt; None &lt;/Countryofbirth_P_87/&gt;
+      &lt;/participant/&gt;
+      &lt;participant id=&quot;2&quot;/&gt;
+        &lt;PersonID/&gt; 2 &lt;/PersonID/&gt;
+        ...
+      &lt;/participant/&gt;
+    &lt;/participants/&gt;
+  &lt;/contacts/&gt;
+&lt;/root&gt;
+</code></pre>
+<h4 id="contactsvolunteerssearch">/contacts/volunteers/search</h4>
+<p>Fetches volunteers in an XML format.</p>
+<table>
+<thead>
+<tr>
+<th>Param (Baytree)</th>
+<th>Param (Views Mock)</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>PersonID</td>
+<td>Volunteer ID</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>searchEmail</td>
+<td>Email</td>
+<td>Volunteer email</td>
+<td>String</td>
+</tr>
+<tr>
+<td>searchFirstName</td>
+<td>Forename</td>
+<td>Volunnter's first name</td>
+<td>String</td>
+</tr>
+<tr>
+<td>searchLastName</td>
+<td>Surname</td>
+<td>Volunteer's last name</td>
+<td>String</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>pageFold</td>
+<td>Number of results to return in a result set</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>offset</td>
+<td>Number of results to offset in a result set</td>
+<td>Number</td>
+</tr>
+</tbody>
+</table>
+<p>Sample response:</p>
+<pre><code>&lt;root&gt;
+  &lt;contacts/&gt;
+    &lt;volunteers count=&quot;2&quot;/&gt;
+      &lt;volunteer id=&quot;3&quot;/&gt;
+        &lt;PersonID/&gt; 3 &lt;/PersonID/&gt;
+        &lt;Forename/&gt; John &lt;/Forename/&gt;
+        &lt;Surname/&gt; Park &lt;/Surname/&gt;
+        &lt;TypeName/&gt; volunteer &lt;/TypeName/&gt;
+        &lt;Email/&gt; None &lt;/Email/&gt;
+        &lt;DateOfBirth/&gt; 1994-01-01 &lt;/DateOfBirth/&gt;
+        &lt;Whatisyourfirstlanguage_V_19/&gt; English &lt;/Whatisyourfirstlanguage_V_19/&gt;
+        &lt;Ethnicity_V_15/&gt; Canadian &lt;/Ethnicity_V_15/&gt;
+        &lt;County/&gt; None&lt;/County/&gt;
+      &lt;/volunteer/&gt;
+      &lt;volunteer id=&quot;4&quot;/&gt;
+        &lt;PersonID/&gt; 4 &lt;/PersonID/&gt;
+        ...
+      &lt;/volunteer/&gt;
+    &lt;/volunteers/&gt;
+  &lt;/contacts/&gt;
+&lt;/root&gt;
+</code></pre>
+<h3 id="evidence">Evidence</h3>
+<h4 id="evidencequestionnairesid">/evidence/questionnaires/{id}</h4>
+<p>Fetches a questionnaire with the provided ID in a JSON format.</p>
+<p>Sample response:</p>
+<pre><code>{
+    &quot;QuestionnaireID&quot;: &quot;1&quot;,
+    &quot;Title&quot;: &quot;121 Session Questionnaire&quot;,
+    &quot;Description&quot;: &quot;Standard questionnaire&quot;,
+    &quot;Created&quot;: &quot;2023-04-13T00:00:00Z&quot;,
+    &quot;Updated&quot;: &quot;2023-04-13T00:00:00Z&quot;,
+    &quot;CreatedBy&quot;: &quot;Jonathan&quot;,
+    &quot;UpdatedBy&quot;: &quot;Jonathan&quot;,
+    &quot;questions&quot;: {
+        &quot;1&quot;: {
+            &quot;QuestionID&quot;: &quot;1&quot;,
+            &quot;Question&quot;: &quot;How was this session conducted?&quot;,
+            &quot;valueListID&quot;: 1,
+            &quot;inputType&quot;: &quot;textarea&quot;,
+            &quot;validation&quot;: &quot;some&quot;,
+            &quot;category&quot;: &quot;satisfaction&quot;,
+            &quot;enabled&quot;: &quot;1&quot;
+        },
+        &quot;2&quot;: {
+            &quot;QuestionID&quot;: &quot;2&quot;,
+            &quot;Question&quot;: &quot;Did you find the session useful?&quot;,
+            &quot;valueListID&quot;: 1,
+            &quot;inputType&quot;: &quot;textarea&quot;,
+            &quot;validation&quot;: &quot;validation&quot;,
+            &quot;category&quot;: &quot;satisfaction&quot;,
+            &quot;enabled&quot;: &quot;1&quot;
+        }
+    }
+}
+</code></pre>
+<h4 id="evidencequestionnairesearch">/evidence/questionnaire/search</h4>
+<p>Fetches questionnaires in a JSON format.</p>
+<table>
+<thead>
+<tr>
+<th>Param (Baytree)</th>
+<th>Param (Views Mock)</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>PersonID</td>
+<td>Participant ID</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>title</td>
+<td>Title</td>
+<td>Number of results to offset in a result set</td>
+<td>String</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>pageFold</td>
+<td>Number of results to return in a result set</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>offset</td>
+<td>Number of results to offset in a result set</td>
+<td>Number</td>
+</tr>
+</tbody>
+</table>
+<p>Sample response:</p>
+<pre><code>{
+    &quot;questionnaires count=\&quot;2\&quot;&quot;: {
+        &quot;questionnaire id=\&quot;1\&quot;&quot;: {
+            &quot;QuestionnaireID&quot;: &quot;1&quot;,
+            &quot;Title&quot;: &quot;121 Session Questionnaire&quot;,
+            &quot;Description&quot;: &quot;Standard questionnaire&quot;,
+            &quot;Created&quot;: &quot;2023-04-13T00:00:00Z&quot;,
+            &quot;Updated&quot;: &quot;2023-04-13T00:00:00Z&quot;,
+            &quot;CreatedBy&quot;: &quot;Jonathan&quot;,
+            &quot;UpdatedBy&quot;: &quot;Jonathan&quot;
+        },
+        &quot;questionnaire id=\&quot;2\&quot;&quot;: {
+            &quot;QuestionnaireID&quot;: &quot;2&quot;,
+            &quot;Title&quot;: &quot;July Questionnaire&quot;,
+            &quot;Description&quot;: &quot;Questionnaire for July&quot;,
+            &quot;Created&quot;: &quot;2023-01-02T00:00:00Z&quot;,
+            &quot;Updated&quot;: &quot;2023-02-20T00:00:00Z&quot;,
+            &quot;CreatedBy&quot;: &quot;Katelyn&quot;,
+            &quot;UpdatedBy&quot;: &quot;Katelyn&quot;
+        }
+    }
+}
+</code></pre>
+<h3 id="admin">Admin</h3>
+<h4 id="adminvaluelistsid">/admin/valuelists/{id}</h4>
+<p>Fetches a valuelist with the provided ID (number) in a JSON format.
+A valuelist is a list of values or options for a given question on a form.</p>
+<p>Sample response:</p>
+<pre><code>{
+    &quot;items&quot;: {
+        &quot;Yes&quot;: &quot;Yes&quot;,
+        &quot;No&quot;: &quot;No&quot;
+    }
+}
+</code></pre>
+<h4 id="adminvalueliststypename">/admin/valuelists/{Type}/{Name}</h4>
+<p>Fetches a valuelist with the provided type (string) and name (string) in a JSON format.
+Views supports querying a valuelist by its type and name.</p>
+<p><code>Type</code> must be one of the following:</p>
+<ul>
+<li>Staff</li>
+<li>Volunteer</li>
+<li>Individual</li>
+<li>Person</li>
+<li>Group</li>
+<li>Session</li>
+<li>SessionGroup</li>
+<li>Question</li>
+<li>Agency</li>
+<li>Venue</li>
+<li>QualificationProgress</li>
+<li>QualificationAchievement</li>
+<li>AddressBook</li>
+<li>Report</li>
+</ul>
+<p><code>Name</code> can be any user-defined values.</p>
+<p>Currently, <code>baytree_app</code> uses this endpoint for the following views:</p>
+<table>
+<thead>
+<tr>
+<th>Baytree view</th>
+<th>Views endpoint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>get_activities_endpoint</code></td>
+<td><code>admin/valuelists/sessiongroup/agencyactivities</code></td>
+</tr>
+<tr>
+<td><code>get_venues_endpoint</code></td>
+<td><code>admin/valuelists/sessiongroup/venues</code></td>
+</tr>
+<tr>
+<td><code>get_volunteering_types_endpoint</code></td>
+<td><code>admin/valuelists/sessiongroup/volunteeringtypes</code></td>
+</tr>
+</tbody>
+</table>
+<p>Sample response:</p>
+<pre><code>{
+    &quot;items&quot;: {
+        &quot;Animal Care&quot;: &quot;Animal Care&quot;,
+        &quot;Academic&quot;: &quot;Academic&quot;
+    }
+}
+</code></pre>
+<h3 id="to-be-implemented">To be implemented</h3>
+<p>The following Baytree views need to be mocked:</p>
+<ul>
+<li><code>/session/session-groups</code></li>
+<li><code>/sessions</code></li>
+<li><code>questionnaires/answers/submit</code></li>
+<li><code>mentor-mentees</code></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Overview"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../future/" class="btn btn-neutral float-right" title="Future work">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../future/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

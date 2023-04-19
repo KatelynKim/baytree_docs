@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="None" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Baytree App Developer Guide</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Overview";
+        var mkdocs_page_input_path = "index.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> Baytree App Developer Guide
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href=".">Overview</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#run-using-docker">Run Using Docker</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#setup">Setup</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#run-locally">Run Locally</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#commands-inside-container">Commands Inside Container</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#migrations">Migrations</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#creating-a-user">Creating a User</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#frontends">Frontends</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#install-frontend-packages">Install Frontend Packages</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#run-outside-of-docker">Run Outside of Docker</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#admin-portal">Admin Portal</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="mock_views/">Mock Views</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="future/">Future work</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">Baytree App Developer Guide</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Overview</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="baytree-app-developer-guide">Baytree App Developer Guide</h1>
+<p>This is the developer guide to get you started on developing Baytree App.</p>
+<h2 id="getting-started">Getting Started</h2>
+<h3 id="run-using-docker">Run Using Docker</h3>
+<h3 id="setup">Setup</h3>
+<ol>
+<li>Install <a href="https://www.docker.com/get-started">Docker</a></li>
+<li>Create a file named <code>.env</code> (for environment variables) in the same directory as <code>docker-compose.yml</code>:<br></li>
+</ol>
+<pre><code>  SECRET_KEY=something_random
+
+  MYSQL_USER=dbuser
+  MYSQL_PASSWORD=something_random
+
+  EMAIL_HOST=smtp.gmail.com
+  EMAIL_PORT=587
+  EMAIL_USER=the_account@gmail.com
+  EMAIL_PASSWORD=the_password
+
+  VIEWS_USERNAME=the_username
+  VIEWS_PASSWORD=the_password
+
+  CELERY_BROKER_URL=redis://redis:6379
+  CELERY_RESULT_BACKEND=redis://redis:6379
+  AWS_ACCESS_KEY_ID= {your_id}
+  AWS_SECRET_ACCESS_KEY= {your_key}
+  AWS_DEFAULT_REGION= us-east-1
+
+  GRAFANA_LOGGING_URL=logs-prod3.grafana.net
+  GRAFANA_USER=319402
+  GRAFANA_API_KEY={your_Grafana_API_key}
+
+  MOCK_MYSQL_DATABASE=views_mock_db
+  VIEWS_BASE_URL={base_url_for_views_apis}
+</code></pre>
+<ol>
+<li>Install frontend dependencies (if running in Docker - see frontend section if not):</li>
+</ol>
+<p><code>bash
+   docker compose run --rm frontend npm install
+   docker compose run --rm admin-frontend npm install</code></p>
+<ol>
+<li>You need to build the docker compose first or when you updated the dependencies</li>
+</ol>
+<p><code>bash
+   docker compose build</code></p>
+<ol>
+<li>Then, run the application:</li>
+</ol>
+<p><code>bash
+   docker compose up</code></p>
+<ol>
+<li>Run migrations and create a superuser (while the application is running):</li>
+</ol>
+<p><code>bash
+   docker exec baytree_server python manage.py migrate
+   docker exec views-mock python manage.py migrate
+   docker exec -it baytree_server python manage.py createsuperuser</code></p>
+<h3 id="run-locally">Run Locally</h3>
+<ul>
+<li>To run the entire application: <code>docker compose up</code></li>
+<li>To run only the backend + database: <code>docker compose up server</code></li>
+<li>If new backend packages have been installed, run <code>docker compose build</code> prior to running the <code>up</code> commands above</li>
+<li>If new frontend packages have been installed, run the following prior to running the <code>up</code> commands above:</li>
+</ul>
+<p><code>bash
+   docker compose run --rm frontend npm install
+   docker compose run --rm admin-frontend npm install</code></p>
+<h3 id="commands-inside-container">Commands Inside Container</h3>
+<p>If you want to open a terminal within a container, use the command:</p>
+<pre><code class="language-bash">docker exec -it [container-name] bash
+</code></pre>
+<h3 id="migrations">Migrations</h3>
+<p>After a model change, run the following to make database migrations:</p>
+<pre><code class="language-bash">docker exec &lt;baytree_server/views-mock&gt; python manage.py makemigrations
+</code></pre>
+<p>To migrate your database, either because you or someone else made database migrations, run:</p>
+<pre><code class="language-bash">docker exec &lt;baytree_server/views-mock&gt; python manage.py migrate
+</code></pre>
+<h3 id="creating-a-user">Creating a User</h3>
+<p>You can create a super (admin) user by running:</p>
+<pre><code class="language-bash">docker exec -it baytree_server python manage.py createsuperuser
+</code></pre>
+<h2 id="frontends">Frontends</h2>
+<h3 id="install-frontend-packages">Install Frontend Packages</h3>
+<p>Run these commands to manage the depenedencies for containers <code>baytree_frontend</code> and <code>baytree_admin_frontend</code></p>
+<ul>
+<li>Install packages as build dependenency, with the application running:</li>
+</ul>
+<p>```bash
+   docker exec [container_name] npm install [package_1] [package_2] ...</p>
+<p># Shorthand syntax
+   docker exec [container_name] npm i [package_1] [package_2] ...
+   ```</p>
+<ul>
+<li>Install packages as a develeper dependency, run the commands above with <code>--save-dev</code> tag:</li>
+</ul>
+<p>```bash
+   docker exec [container_name] npm install --save-dev [package_1] [package_2] ...</p>
+<p># Shorthand syntax
+   docker exec [container_name] npm i -D [package_1] [package_2] ...
+   ```</p>
+<ul>
+<li>Unistall a package, with the application running</li>
+</ul>
+<p><code>bash
+   docker exec [container_name] npm uninstall [package_1] [package_2] ...</code></p>
+<h3 id="run-outside-of-docker">Run Outside of Docker</h3>
+<p>The frontends can either be run in Docker (using the instructions above) or outside of Docker. Due to the large number of files in <code>node_modules</code>, file system performance may be better outside of Docker. To run outside of Docker:</p>
+<ol>
+<li>Install <a href="https://nodejs.org/en/">Node.js</a></li>
+<li>Run <code>npm install</code> in both frontend folders</li>
+<li>Use the command <code>docker compose up server</code> to run only the backend + database</li>
+<li>Use the command <code>docker compose up views-mock</code> to run the node server for mocking Views APIs.</li>
+<li>Use the following commands to run the frontends:</li>
+<li>frontend: <code>npm start</code></li>
+<li>admin-frontend: <code>npm run dev</code></li>
+</ol>
+<h2 id="admin-portal">Admin Portal</h2>
+<p>Navigate to <a href="http://localhost:3001/admin">http://localhost:3001/admin</a> in your browser and use your superuser credentials (or any admin user credentials) to log in</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="mock_views/" class="btn btn-neutral float-right" title="Mock Views">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+      <span><a href="mock_views/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '.';</script>
+    <script src="js/theme_extra.js" defer></script>
+    <script src="js/theme.js" defer></script>
+      <script src="search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.4.2
+Build Date UTC : 2023-04-19 03:15:17.184291+00:00
+-->
